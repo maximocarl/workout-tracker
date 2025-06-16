@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 
-export default async function Page() {
+export default async function Page({ children }: { children: React.ReactNode }) {
     const session = await getServerSession();
     if (!session) {
         return (
@@ -11,7 +11,8 @@ export default async function Page() {
         );
     }
     return (
-        <div>
+        <div className="m-2">
+            {children}
         </div>
     );
 }

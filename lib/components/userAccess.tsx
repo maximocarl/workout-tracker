@@ -21,7 +21,7 @@ export default function UserAccess() {
             {session ? (
                 <div>
                     {session.user?.name}
-                    <Button type="primary" onClick={() => signOut()} style={{ margin: "1rem" }}>
+                    <Button type="primary" onClick={() => signOut()} style={{ margin: "1rem" }} danger>
                         Sign Out
                     </Button>
                 </div>

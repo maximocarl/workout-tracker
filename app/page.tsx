@@ -10,14 +10,12 @@ export default async function Home() {
         <h1 className="text-2xl m-2">This is the Home page.</h1>
         <h2 className="text-xl m-2">Please sign in to view this page.</h2>
       </div>
-      
-      
+
+
     );
   }
 
   return (
-    <div>
-      <DayCard />
-    </div>
+    <DayCard />
   );
 }
