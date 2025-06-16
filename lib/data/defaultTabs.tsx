@@ -2,7 +2,7 @@ import { HomeFilled, HomeOutlined } from "@ant-design/icons";
 import type { TabsProps } from "antd";
 
 export function defaultTabs(pathname: string, children: React.ReactNode): TabsProps["items"] {
-  return [
+  const tabs: TabsProps["items"] = [
     {
       key: "/",
       label: (
@@ -19,4 +19,20 @@ export function defaultTabs(pathname: string, children: React.ReactNode): TabsPr
       children: pathname === "/workouts" ? children : null,
     },
   ];
+
+  const navDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+  const pathSegments = pathname.split("/").filter(Boolean);
+  const day = pathSegments[0];
+
+  if (navDays.includes(day)) {
+    tabs.push({
+      key: `/${day}`,
+      label: <span>{day}</span>,
+      children,
+    });
+  }
+
+
+  return tabs;
 }

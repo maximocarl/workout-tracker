@@ -11,9 +11,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const pathname = usePathname();
   const router = useRouter();
 
-  const onTabClick = (key: string) => {
-    router.push(key);
-  };
+  const pathSegments = pathname.split("/").filter(Boolean);
+  const navDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+  const day = pathSegments[0];
+
+  const activeKey = navDays.includes(day) ? `/${day}` : pathname;
 
   const startTabs = defaultTabs(pathname, children);
 
@@ -21,9 +23,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <Nav
-          activeKey={pathname}
+          activeKey={activeKey}
           items={startTabs}
-          onTabClick={onTabClick}
+          onTabClick={(key) => router.push(key)}
         />
       </body>
     </html>
