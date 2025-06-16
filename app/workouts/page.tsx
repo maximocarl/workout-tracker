@@ -1,9 +1,8 @@
-export default async function WorkoutsPage() {
-    return (
-        <div>
-            <p>
-                This is the Workouts Page
-            </p>
-        </div>
-    );
+export default async function WorkoutPage() {
+  
+  return (
+    <p>
+        This is the Workout Page
+    </p>
+  );
 }
