@@ -31,6 +31,12 @@ export function defaultTabs(pathname: string, children: React.ReactNode): TabsPr
       label: <span>{day}</span>,
       children,
     });
+  } else if (pathname === "/login") {
+    tabs.push({
+      key: "/login",
+      label: <span>Login</span>,
+      children,
+    });
   }
 
 
