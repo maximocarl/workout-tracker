@@ -2,8 +2,6 @@
 
 import { Tabs, Button, ConfigProvider } from "antd";
 import type { TabsProps } from "antd";
-import { HomeOutlined, HomeFilled } from '@ant-design/icons';
-import Link from "next/link";
 
 
 // Extra Content 
