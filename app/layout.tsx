@@ -1,4 +1,3 @@
-// app/layout.tsx or app/rootLayout.tsx
 import "./globals.css";
 import Nav from "../lib/components/nav";
 import { getServerSession } from "next-auth";
