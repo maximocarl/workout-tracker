@@ -5,10 +5,10 @@ export default async function Page({ children }: { children: React.ReactNode }) 
     // if (!session) {
     //     return (
     //         <div>
-    //             <h1 className="text-2xl m-2">This is the Workouts page.</h1>
-    //             <h2 className="text-xl m-2">This page only available once logged in.</h2>
+    //             <h1 className="text-2xl m-2">You&apos;re attempting to access a Day page.</h1>
+    //             <h2 className="text-xl m-2">You must be signed in to view this page.</h2>
     //         </div>
-    //     );
+    //     )
     // }
     return (
         <div className="m-2">

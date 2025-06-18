@@ -1,58 +1,51 @@
 "use client";
 
-import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from "react";
 import { Card, Col, Row, Button, Divider } from 'antd';
+import { useRouter } from "next/navigation";
 
 type Day = {
     _id: string;
     day: string;
     routine: string;
     workouts: any[];
-};
+}
 
-export function DayCard() {
+export default function DayPage({ params }: { params: { id: string } }) {
+    const [day, setDay] = useState<Day | null>(null);
+    // const [loading, setLoading] = useState(true);
+
     const router = useRouter();
 
-    const [days, setDays] = useState<Day[]>([]);
-    const [loading, setLoading] = useState(true);
-
     useEffect(() => {
-        async function fetchDays() {
+        async function fetchDay() {
             try {
-                const res = await fetch("/api/days");
-
-                if (!res.ok) throw new Error("Failed to fetch days");
+                const res = await fetch(`/api/days/${params.id}`);
+                if (!res.ok) throw new Error("Failed to fetch the Day");
 
                 const data = await res.json();
-
-                setDays(data.days || data);
+                setDay(data.day);
             } catch (error) {
-                console.error("Error fetching days:", error);
-            } finally {
-                setLoading(false);
+                console.error(error);
             }
         }
-        fetchDays();
-    }, []);
-
-    if (loading) return <p>Loading days...</p>;
+        fetchDay();
+    }, [params.id]);
 
     return (
         <div className='px-4'>
             <Row gutter={16}>
-                {days.map((day, index) =>
+                {day?.workouts.map((w, index) => (
                     <Col key={index} span={8}>
                         <Card
-                            title={day.day}
+                            title={w.name}
                             variant="borderless"
                             styles={{ body: { margin: '16px' } }}
                             hoverable={true}
-                            onClick={() => router.push(`/${day._id}`)}
                         >
-                            <p className="font-bold text-xl text-center">
-                                {day.routine}
-                            </p>
+                            <p>{w.sets} sets for {w.sets} Reps</p>
+                            <p>At a weight of {w.weight} lbs</p>
+                            <p>Notes: {w.notes}</p>
                             <Divider />
                             <div className='text-right'>
                                 <Button
@@ -61,7 +54,7 @@ export function DayCard() {
                                     className='mr-2'
                                     onClick={(e) => {
                                         e.stopPropagation();
-                                        router.push(`/${day._id}/edit`)
+                                        router.push(`/workouts/${w._id}/edit`)
                                     }}
                                 >
                                     Edit
@@ -77,7 +70,7 @@ export function DayCard() {
                             </div>
                         </Card>
                     </Col>
-                )}
+                ))}
             </Row>
         </div>
     );
