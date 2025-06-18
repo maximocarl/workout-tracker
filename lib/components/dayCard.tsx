@@ -4,11 +4,19 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from "react";
 import { Card, Col, Row, Button, Divider } from 'antd';
 
+type Workout = {
+  _id: string;
+  name: string;
+  sets: number;
+  reps: number;
+  weight: number;
+};
+
 type Day = {
     _id: string;
     day: string;
     routine: string;
-    workouts: any[];
+    workouts: Workout[];
 };
 
 export function DayCard() {

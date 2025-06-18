@@ -13,7 +13,6 @@ type Day = {
 
 export default function DayPage({ params }: { params: { id: string } }) {
     const [day, setDay] = useState<Day | null>(null);
-    // const [loading, setLoading] = useState(true);
 
     const router = useRouter();
 

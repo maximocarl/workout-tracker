@@ -1,12 +1,6 @@
 import { NextResponse } from 'next/server';
 import { connectToDatabase } from '@/lib/db';
 import Day from '@/lib/models/Day';
-import { connect } from 'http2';
-
-// Helper: check for valid MongoDB ObjectId
-function isValidObjectId(id: string) {
-    return /^[0-9a-fA-F]{24}$/.test(id);
-}
 
 // GET all Days
 export async function GET() {
