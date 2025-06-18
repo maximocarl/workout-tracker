@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Card, Col, Row, Button, Divider } from 'antd';
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 
 type Workout = {
   _id: string;
@@ -20,7 +20,8 @@ type Day = {
     workouts: Workout[];
 }
 
-export default function DayPage({ params }: { params: { id: string } }) {
+export default function DayPage() {
+    const { id } = useParams<{ id: string }>();
     const [day, setDay] = useState<Day | null>(null);
 
     const router = useRouter();
@@ -28,7 +29,7 @@ export default function DayPage({ params }: { params: { id: string } }) {
     useEffect(() => {
         async function fetchDay() {
             try {
-                const res = await fetch(`/api/days/${params.id}`);
+                const res = await fetch(`/api/days/${id}`);
                 if (!res.ok) throw new Error("Failed to fetch the Day");
 
                 const data = await res.json();
@@ -38,7 +39,7 @@ export default function DayPage({ params }: { params: { id: string } }) {
             }
         }
         fetchDay();
-    }, [params.id]);
+    }, [id]);
 
     return (
         <div className='px-4'>
