@@ -2,19 +2,11 @@ import { NextResponse } from 'next/server';
 import { connectToDatabase } from '@/lib/db';
 import Day from '@/lib/models/Day';
 
-// Helper: check for valid MongoDB ObjectId
-function isValidObjectId(id: string) {
-    return /^[0-9a-fA-F]{24}$/.test(id);
-}
-
 // GET Day by ID
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: Request) {
     try {
-        const { id } = params;
-
-        if (!isValidObjectId(id)) {
-            return NextResponse.json({ error: 'Invalid Day ID' }, { status: 400 });
-        }
+        const url = new URL(request.url);
+        const id = url.pathname.split("/").pop();
 
         await connectToDatabase();
 
