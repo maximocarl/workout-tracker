@@ -4,11 +4,20 @@ import React, { useEffect, useState } from "react";
 import { Card, Col, Row, Button, Divider } from 'antd';
 import { useRouter } from "next/navigation";
 
+type Workout = {
+  _id: string;
+  name: string;
+  type: string;
+  reps: number;
+  sets: number;
+  weight: number;
+  notes?: string;
+};
 type Day = {
     _id: string;
     day: string;
     routine: string;
-    workouts: any[];
+    workouts: Workout[];
 }
 
 export default function DayPage({ params }: { params: { id: string } }) {

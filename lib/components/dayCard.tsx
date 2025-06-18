@@ -7,9 +7,11 @@ import { Card, Col, Row, Button, Divider } from 'antd';
 type Workout = {
   _id: string;
   name: string;
-  sets: number;
+  type: string;
   reps: number;
+  sets: number;
   weight: number;
+  notes?: string;
 };
 
 type Day = {
