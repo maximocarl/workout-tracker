@@ -9,7 +9,7 @@ type Params = {
 };
 
 // GET Day by ID
-export async function GET(request: NextRequest) {
+export async function GET(request: Request) {
     try {
         const url = new URL(request.url);
         const id = url.pathname.split("/").pop();
@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
 }
 
 // PUT Day by ID
-export async function PUT(request: NextRequest, context: Params) {
+export async function PUT(request: Request, context: any) {
     try {
     const id = context.params.id;
 
