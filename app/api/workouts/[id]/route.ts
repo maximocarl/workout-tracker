@@ -34,7 +34,6 @@ export async function PUT(request: NextRequest, context: { params: { id: string 
 
         const updatedWorkout = await Workout.findByIdAndUpdate(id, updateData, {
             new: true,
-            runValidators: true,
         });
 
         if (!updatedWorkout) {
