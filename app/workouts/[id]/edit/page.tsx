@@ -14,7 +14,15 @@ type Workout = {
     notes?: string;
 };
 
-export default function EditPage({ params }: { params: { id: string } }) {
+type WorkoutFormValues = {
+    currentType: string;
+    reps: string;
+    sets: string;
+    weight: number;
+    notes: string;
+}
+
+export default function EditPage() {
     const { id } = useParams<{ id: string }>();
     const [workout, setWorkout] = useState<Workout | null>(null);
 
@@ -35,7 +43,7 @@ export default function EditPage({ params }: { params: { id: string } }) {
         fetchCurrentWorkout();
     }, [id]);
 
-    const handleSubmit = async (values: any) => {
+    const handleSubmit = async (values: WorkoutFormValues) => {
         try {
             const res = await fetch(`/api/workouts/${id}`, {
                 method: "PUT",

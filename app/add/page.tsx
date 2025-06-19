@@ -14,6 +14,13 @@ type Workout = {
     notes?: string;
 };
 
+type DayFormValues = {
+    currentDay: string;
+    currentRoutine: string;
+    workouts: string[]; 
+};
+
+
 export default function AddDayPage() {
     const [allWorkouts, setAllWorkouts] = useState<Workout[]>([]);
     const router = useRouter();
@@ -34,7 +41,7 @@ export default function AddDayPage() {
         fetchCurrentDay();
     }, []);
 
-    const handleSubmit = async (values: any) => {
+    const handleSubmit = async (values: DayFormValues) => {
         try {
             const res = await fetch(`/api/days/`, {
                 method: "POST",

@@ -3,10 +3,19 @@
 import { Button, Form, Input } from 'antd';
 import { useRouter } from 'next/navigation';
 
+type WorkoutFormValues = {
+    workout: string;
+    currentType: string;
+    reps: string;
+    sets: string;
+    weight: number;
+    notes: string;
+}
+
 export default function AddWorkoutPage() {
     const router = useRouter();
 
-    const handleSubmit = async (values: any) => {
+    const handleSubmit = async (values: WorkoutFormValues) => {
         try {
             const res = await fetch(`/api/workouts/`, {
                 method: "POST",

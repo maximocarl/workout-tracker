@@ -21,7 +21,14 @@ type Day = {
     workouts: Workout[];
 }
 
-export default function EditPage({ params }: { params: { id: string } }) {
+type DayFormValues = {
+    currentDay: string;
+    currentRoutine: string;
+    workouts: string[]; 
+};
+
+
+export default function EditPage() {
     const { id } = useParams<{ id: string }>();
     const [day, setDay] = useState<Day | null>(null);
     const [allWorkouts, setAllWorkouts] = useState<Workout[]>([]);
@@ -51,7 +58,7 @@ export default function EditPage({ params }: { params: { id: string } }) {
         value: workout._id,
     })) ?? [];
 
-    const handleSubmit = async (values: any) => {
+    const handleSubmit = async (values: DayFormValues) => {
         try {
             const res = await fetch(`/api/days/${id}`, {
                 method: "PUT",
