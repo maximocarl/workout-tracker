@@ -24,9 +24,9 @@ export async function GET(request: Request) {
 }
 
 // PUT Day by ID
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(request: NextRequest, context: { params: { id: string } }) {
     try {
-        const { id } = params;
+        const id = context.params.id;
 
         await connectToDatabase();
 
