@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 import { connectToDatabase } from '@/lib/db';
 import Workout from '@/lib/models/Workout';
 
@@ -24,7 +24,7 @@ export async function GET(request: Request) {
 }
 
 // PUT Workout by ID
-export async function PUT(request: Request, context: { params: { id: string }}) {
+export async function PUT(request: NextRequest, context: { params: { id: string }}) {
     try {
         const { id } = context.params;
 
