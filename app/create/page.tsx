@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Button, Form, Input, Select } from 'antd';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 type Workout = {
     _id: string;
@@ -13,16 +13,10 @@ type Workout = {
     weight: number;
     notes?: string;
 };
-type Day = {
-    _id: string;
-    day: string;
-    routine: string;
-    workouts: Workout[];
-}
 
 export default function CreatePage() {
     const [workouts, setWorkouts] = useState<Workout[]>([]);
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
 
     const router = useRouter();
 
@@ -35,7 +29,7 @@ export default function CreatePage() {
             } catch (error) {
                 console.error("Failed to fetch workouts", error);
             } finally {
-                setLoading(false);
+                // setLoading(false);
             }
         }
         fetchWorkouts();
