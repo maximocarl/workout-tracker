@@ -5,13 +5,13 @@ import { Card, Col, Row, Button, Divider } from 'antd';
 import { useRouter, useParams } from "next/navigation";
 
 type Workout = {
-  _id: string;
-  name: string;
-  type: string;
-  reps: number;
-  sets: number;
-  weight: number;
-  notes?: string;
+    _id: string;
+    name: string;
+    type: string;
+    reps: number;
+    sets: number;
+    weight: number;
+    notes?: string;
 };
 type Day = {
     _id: string;
@@ -41,8 +41,37 @@ export default function DayPage() {
         fetchDay();
     }, [id]);
 
+    const handleDelete = async () => {
+        try {
+            const res = await fetch(`/api/days/${id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (!res.ok) {
+                const text = await res.text();
+                console.error("DELETE failed:", res.status, text);
+                throw new Error("Failed to delete Day");
+            }
+
+            const json = await res.json();
+            console.log("Day deleted", json.day);
+        } catch (error) {
+            console.error("Error deleting Day:", error);
+        }
+    };
+
+
+    if (!day) return <div>Loading...</div>;
+
+
     return (
         <div className='px-4'>
+            <h1 className="text-3xl m-2">
+                <strong>{day.day}</strong> - {day.routine}
+            </h1>
             <Row gutter={16}>
                 {day?.workouts.map((w, index) => (
                     <Col key={index} span={8}>
@@ -68,19 +97,35 @@ export default function DayPage() {
                                 >
                                     Edit
                                 </Button>
-                                <Button
-                                    onClick={(e) =>
-                                        e.stopPropagation
-                                    }
-                                    danger
-                                >
-                                    Delete
-                                </Button>
                             </div>
                         </Card>
                     </Col>
                 ))}
             </Row>
+            <div className="text-right">
+                <Divider />
+                <Button
+                    type="primary"
+                    className='mr-2'
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        router.push(`/${day._id}/edit`)
+                    }}
+                >
+                    Edit
+                </Button>
+                <Button
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        handleDelete();
+                        router.push(`/`)
+                    }}
+                    danger
+                >
+                    Delete
+                </Button>
+            </div>
+        
         </div>
     );
 }

@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Card, Col, Row, Button, Divider } from 'antd';
+import { Card, Col, Row, Button, Divider, ConfigProvider } from 'antd';
 import { useRouter } from "next/navigation";
 
 type Workout = {
@@ -18,7 +18,7 @@ export default function WorkoutPage() {
   const [workouts, setWorkouts] = useState<Workout[]>([]);
   const [loading, setLoading] = useState(true);
 
-  
+
 
   useEffect(() => {
     async function fetchWorkouts() {
@@ -38,7 +38,29 @@ export default function WorkoutPage() {
   if (loading) return <p>Loading workouts...</p>;
 
   return (
+
     <div className='px-4'>
+      <div className="text-right mb-3">
+        <ConfigProvider
+          theme={{
+            components: {
+              Button: {
+                colorPrimary: '#52c41a',
+                colorPrimaryHover: '#389e0d',
+                colorPrimaryActive: '#237804',
+              },
+            },
+          }}
+        >
+          <Button
+            type="primary"
+            onClick={() => router.push(`/workouts/add`)}
+          >
+            ADD
+          </Button>
+        </ConfigProvider>
+
+      </div>
       <Row gutter={16}>
         {workouts.map((w, index) => (
           <Col key={index} span={8}>
@@ -63,14 +85,6 @@ export default function WorkoutPage() {
                   }}
                 >
                   Edit
-                </Button>
-                <Button
-                  onClick={(e) =>
-                    e.stopPropagation
-                  }
-                  danger
-                >
-                  Delete
                 </Button>
               </div>
             </Card>

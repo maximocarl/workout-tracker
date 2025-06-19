@@ -5,6 +5,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { defaultTabs } from "@/lib/data/defaultTabs";
 import UserAccess from "./userAccess";
 
+
 export default function Nav({ children }: { children?: React.ReactNode }) {
     const router = useRouter();
     const pathname = usePathname();

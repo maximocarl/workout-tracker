@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Button, Form, Input, Select } from 'antd';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 type Workout = {
     _id: string;
@@ -13,89 +13,81 @@ type Workout = {
     weight: number;
     notes?: string;
 };
-type Day = {
-    _id: string;
-    day: string;
-    routine: string;
-    workouts: Workout[];
-}
 
-export default function EditPage({ params }: { params: { id: string } }) {
-    const { id } = useParams<{ id: string }>();
-    const [day, setDay] = useState<Day | null>(null);
+export default function AddDayPage() {
     const [allWorkouts, setAllWorkouts] = useState<Workout[]>([]);
-
     const router = useRouter();
 
     useEffect(() => {
         async function fetchCurrentDay() {
             try {
-                const res = await fetch(`/api/days/${id}`);
-                const res2 = await fetch(`/api/workouts`)
-                if (!res.ok || !res2.ok) throw new Error("Failed to fetch the Day");
+                const res = await fetch(`/api/workouts`)
+                if (!res.ok) throw new Error("Failed to fetch the Day");
 
                 const data = await res.json();
-                const data2 = await res2.json();
-                setDay(data.day);
-                setAllWorkouts(data2.workouts);
+
+                setAllWorkouts(data.workouts);
             } catch (error) {
                 console.error(error);
             }
         }
         fetchCurrentDay();
-    }, [id]);
+    }, []);
+
+    const handleSubmit = async (values: any) => {
+        try {
+            const res = await fetch(`/api/days/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    day: values.currentDay,
+                    routine: values.currentRoutine,
+                    workouts: values.workouts
+                }),
+
+            });
+
+            if (!res.ok) {
+                const text = await res.text();
+                console.error("Post failed:", res.status, text);
+                throw new Error("Failed to create a Day");
+            }
+
+            router.push('/');
+
+        } catch (error) {
+            console.error("Error updating Workout:", error);
+        }
+    };
 
     const workoutOptions = allWorkouts.map(workout => ({
         label: workout.name,
         value: workout._id,
     })) ?? [];
 
-    const handleSubmit = async (values: any) => {
-        try {
-            const res = await fetch(`/api/days/${id}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    routine: values.currentRoutine,
-                    workouts: values.workouts,
-                }),
-            });
 
-            if (!res.ok) {
-                const text = await res.text();
-                console.error("PUT failed:", res.status, text);
-                throw new Error("Failed to update Day");
-            }
-
-            const json = await res.json();
-            console.log("Day updated", json.day);
-            router.push(`/${day?._id}`);
-        } catch (error) {
-            console.error("Error updating Day:", error);
-        }
-    };
 
     return (
         <div className="m-2">
             <Form
                 layout="vertical"
                 onFinish={handleSubmit}
-                initialValues={{
-                    currentRoutine: day?.routine ?? '',
-                    workouts: day?.workouts?.map(w => w._id) ?? [],
-                }}
             >
-                <Form.Item label="Selected Day">
-                    <Input disabled placeholder={day?.day ?? 'Loading...'} />
+                <Form.Item
+                    label="Enter a Day"
+                    name="currentDay"
+                    rules={[{ required: true, message: 'Please enter a Day' }]}
+                >
+                    <Input placeholder="" />
                 </Form.Item>
                 <Form.Item
-                    label="Current Routine"
+                    label="Enter a Routine"
                     name="currentRoutine"
                     rules={[{ required: true, message: 'Please enter a Routine for the Day' }]}
                 >
-                    <Input placeholder={day?.routine ?? 'Loading...'} />
+                    <Input placeholder="" />
                 </Form.Item>
                 <Form.Item
                     name="workouts"
@@ -117,4 +109,5 @@ export default function EditPage({ params }: { params: { id: string } }) {
             </Form>
         </div>
     );
+
 }

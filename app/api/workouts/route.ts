@@ -28,7 +28,7 @@ export async function POST(request: Request) {
         const data = await request.json();
         const newWorkout = await Workout.create(data);
 
-        return NextResponse.json({ Workout: newWorkout }, { status: 201 })
+        return NextResponse.json({ workout: newWorkout }, { status: 201 })
     } catch (error) {
         console.error("Error creating new Workout", error);
 

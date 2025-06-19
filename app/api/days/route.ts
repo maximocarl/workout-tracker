@@ -28,13 +28,14 @@ export async function POST(request: Request) {
         const data = await request.json();
         const newDay = await Day.create(data);
 
-        return NextResponse.json({ Day: newDay }, { status: 201 });
+        return NextResponse.json({ day: newDay }, { status: 201 });
     } catch (error) {
         console.error("Error creating new Day", error);
 
         return NextResponse.json(
-            { error: " Failed to create a new Day"},
+            { error: " Failed to create a new Day" },
             { status: 500 }
         );
     }
 }
+

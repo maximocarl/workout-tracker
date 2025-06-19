@@ -2,16 +2,16 @@
 
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from "react";
-import { Card, Col, Row, Button, Divider } from 'antd';
+import { Card, Col, Row, Button, Divider, ConfigProvider } from 'antd';
 
 type Workout = {
-  _id: string;
-  name: string;
-  type: string;
-  reps: number;
-  sets: number;
-  weight: number;
-  notes?: string;
+    _id: string;
+    name: string;
+    type: string;
+    reps: number;
+    sets: number;
+    weight: number;
+    notes?: string;
 };
 
 type Day = {
@@ -64,31 +64,31 @@ export function DayCard() {
                                 {day.routine}
                             </p>
                             <Divider />
-                            <div className='text-right'>
-                                <Button
-                                    type="primary"
-                                    ghost
-                                    className='mr-2'
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        router.push(`/${day._id}/edit`)
-                                    }}
-                                >
-                                    Edit
-                                </Button>
-                                <Button
-                                    onClick={(e) =>
-                                        e.stopPropagation
-                                    }
-                                    danger
-                                >
-                                    Delete
-                                </Button>
-                            </div>
                         </Card>
                     </Col>
                 )}
             </Row>
+            <div className="text-right">
+                <Divider />
+                <ConfigProvider
+                    theme={{
+                        components: {
+                            Button: {
+                                colorPrimary: '#52c41a',
+                                colorPrimaryHover: '#389e0d',
+                                colorPrimaryActive: '#237804',
+                            },
+                        },
+                    }}
+                >
+                    <Button
+                        type="primary"
+                        onClick={() => router.push(`/add`)}
+                    >
+                        ADD
+                    </Button>
+                </ConfigProvider>
+            </div>
         </div>
     );
 }
