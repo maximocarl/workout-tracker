@@ -2,7 +2,6 @@ import { NextResponse, NextRequest } from 'next/server';
 import { connectToDatabase } from '@/lib/db';
 import Workout from '@/lib/models/Workout';
 
-export const runtime = 'nodejs';
 
 // GET Workout by ID
 export async function GET(request: Request) {
@@ -26,9 +25,9 @@ export async function GET(request: Request) {
 }
 
 // PUT Workout by ID
-export async function PUT(request: NextRequest, context: { params: { id: string }}) {
+export async function PUT(request: NextRequest, params: Promise<{ params: { id: string } }>) {
     try {
-        const { id } = context.params;
+        const { params: { id } } = await params;
 
         await connectToDatabase();
 
