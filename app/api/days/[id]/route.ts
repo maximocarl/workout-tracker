@@ -24,7 +24,7 @@ export async function GET(request: Request) {
 }
 
 // PUT Day by ID
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
     try {
         const { id } = params;
 
