@@ -3,7 +3,7 @@ import { connectToDatabase } from '@/lib/db';
 import Workout from '@/lib/models/Workout';
 
 // GET Workout by ID
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
     try {
         const url = new URL(request.url);
         const id = url.pathname.split("/").pop();
@@ -34,6 +34,7 @@ export async function PUT(request: NextRequest, context: { params: { id: string 
 
         const updatedWorkout = await Workout.findByIdAndUpdate(id, updateData, {
             new: true,
+            runValidators: true,
         });
 
         if (!updatedWorkout) {
