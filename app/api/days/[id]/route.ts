@@ -2,12 +2,6 @@ import { NextResponse } from 'next/server';
 import { connectToDatabase } from '@/lib/db';
 import Day from '@/lib/models/Day';
 
-type Params = {
-  params: {
-    id: string;
-  };
-};
-
 // GET Day by ID
 export async function GET(request: Request) {
     try {
