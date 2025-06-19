@@ -2,6 +2,8 @@ import { NextResponse, NextRequest } from 'next/server';
 import { connectToDatabase } from '@/lib/db';
 import Day from '@/lib/models/Day';
 
+export const runtime = 'nodejs';
+
 // GET Day by ID
 export async function GET(request: Request) {
     try {
