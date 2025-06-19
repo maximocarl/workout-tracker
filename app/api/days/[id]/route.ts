@@ -2,6 +2,12 @@ import { NextResponse, NextRequest } from 'next/server';
 import { connectToDatabase } from '@/lib/db';
 import Day from '@/lib/models/Day';
 
+type Params = {
+  params: {
+    id: string;
+  };
+};
+
 // GET Day by ID
 export async function GET(request: NextRequest) {
     try {
@@ -24,7 +30,7 @@ export async function GET(request: NextRequest) {
 }
 
 // PUT Day by ID
-export async function PUT(request: NextRequest, context: { params: { id: string } }) {
+export async function PUT(request: NextRequest, context: Params) {
     try {
     const id = context.params.id;
 
