@@ -1,4 +1,4 @@
-import { NextResponse, NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 import { connectToDatabase } from '@/lib/db';
 import Day from '@/lib/models/Day';
 
@@ -25,28 +25,28 @@ export async function GET(request: Request) {
 }
 
 // PUT Day by ID
-export async function PUT(request: NextRequest, params: Promise<{ params: { id: string } }>) {
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }>}) {
     try {
-        const { params: { id } } = await params;
+        const id = (await params).id;
 
-    await connectToDatabase();
+        await connectToDatabase();
 
-    const updateData = await request.json();
+        const updateData = await request.json();
 
-    const updatedDay = await Day.findByIdAndUpdate(id, updateData, {
-        new: true,
-        runValidators: true,
-    }).populate("workouts");
+        const updatedDay = await Day.findByIdAndUpdate(id, updateData, {
+            new: true,
+            runValidators: true,
+        }).populate("workouts");
 
-    if (!updatedDay) {
-        return NextResponse.json({ error: 'Day not found' }, { status: 404 });
+        if (!updatedDay) {
+            return NextResponse.json({ error: 'Day not found' }, { status: 404 });
+        }
+
+        return NextResponse.json({ day: updatedDay }, { status: 200 });
+    } catch (error) {
+        console.error('Error updating Day:', error);
+        return NextResponse.json({ error: 'Failed to update Day' }, { status: 500 });
     }
-
-    return NextResponse.json({ day: updatedDay }, { status: 200 });
-} catch (error) {
-    console.error('Error updating Day:', error);
-    return NextResponse.json({ error: 'Failed to update Day' }, { status: 500 });
-}
 }
 
 // DELETE Day by ID
