@@ -24,12 +24,12 @@ type Day = {
 type DayFormValues = {
     currentDay: string;
     currentRoutine: string;
-    workouts: string[]; 
+    workouts: string[];
 };
 
 
-export default function EditPage() {
-    const { id } = useParams<{ id: string }>();
+export default function EditPage({ params }: { params: { id: string } }) {
+    const id = params.id;
     const [day, setDay] = useState<Day | null>(null);
     const [allWorkouts, setAllWorkouts] = useState<Workout[]>([]);
 
