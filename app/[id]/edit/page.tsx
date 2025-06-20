@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Form, Input, Select } from 'antd';
 import { useRouter } from 'next/navigation';
 
+// Type 
 type Workout = {
     _id: string;
     name: string;
