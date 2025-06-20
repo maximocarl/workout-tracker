@@ -46,7 +46,19 @@ export function DayCard() {
         fetchDays();
     }, []);
 
-    if (loading) return <p>Loading days...</p>;
+    if (loading) return (
+        <Row gutter={16}>
+            <Col span={8}>
+                <Card loading={loading}></Card>
+            </Col>
+            <Col span={8}>
+                <Card loading={loading}></Card>
+            </Col>
+            <Col span={8}>
+                <Card loading={loading}></Card>
+            </Col>
+        </Row>
+    );
 
     return (
         <div className='px-4'>

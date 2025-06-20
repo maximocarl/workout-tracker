@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from "react";
-import { Button, Form, Input, Select } from 'antd';
+import { Button, Form, Input, Select, Spin } from 'antd';
 import { useRouter } from 'next/navigation';
 
 type Workout = {
@@ -17,12 +17,12 @@ type Workout = {
 type DayFormValues = {
     currentDay: string;
     currentRoutine: string;
-    workouts: string[]; 
+    workouts: string[];
 };
 
 export default function CreatePage() {
     const [workouts, setWorkouts] = useState<Workout[]>([]);
-    // const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     const router = useRouter();
 
@@ -35,7 +35,7 @@ export default function CreatePage() {
             } catch (error) {
                 console.error("Failed to fetch workouts", error);
             } finally {
-                // setLoading(false);
+                setLoading(false);
             }
         }
         fetchWorkouts();
@@ -73,6 +73,12 @@ export default function CreatePage() {
             console.error("Error creating Day:", error);
         }
     };
+
+    if (loading) return (
+        <div className="m-2">
+            <Spin size="large" />
+        </div>
+    );
 
     return (
         <div className="m-2">

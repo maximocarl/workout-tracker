@@ -24,7 +24,7 @@ type Day = {
 export default function DayPage() {
     const { id } = useParams<{ id: string }>();
     const [day, setDay] = useState<Day | null>(null);
-
+    const [loading, setLoading] = useState(true);
     const router = useRouter();
 
     useEffect(() => {
@@ -37,11 +37,27 @@ export default function DayPage() {
                 setDay(data.day);
             } catch (error) {
                 console.error(error);
+            } finally {
+                setLoading(false);
             }
         }
         fetchDay();
     }, [id]);
 
+    if (loading) return (
+        <Row gutter={16}>
+            <Col span={8}>
+                <Card loading={loading}></Card>
+            </Col>
+            <Col span={8}>
+                <Card loading={loading}></Card>
+            </Col>
+            <Col span={8}>
+                <Card loading={loading}></Card>
+            </Col>
+        </Row>
+    );
+    
     const handleDelete = async () => {
         try {
             const res = await fetch(`/api/days/${id}`, {
@@ -126,7 +142,7 @@ export default function DayPage() {
                     Delete
                 </Button>
             </div>
-        
+
         </div>
     );
 }

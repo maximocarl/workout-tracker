@@ -1,6 +1,7 @@
 'use client';
 
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Spin } from 'antd';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 type WorkoutFormValues = {
@@ -14,6 +15,13 @@ type WorkoutFormValues = {
 
 export default function AddWorkoutPage() {
     const router = useRouter();
+
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => setLoading(false), 200);
+        return () => clearTimeout(timeout);
+    }, []);
 
     const handleSubmit = async (values: WorkoutFormValues) => {
         try {
@@ -44,6 +52,12 @@ export default function AddWorkoutPage() {
             console.error("Error updating Workout:", error);
         }
     };
+
+    if (loading) return (
+        <div className="m-2">
+            <Spin size="large" />
+        </div>
+    );
 
 
     return (

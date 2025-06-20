@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from "react";
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Spin } from 'antd';
 import { useParams, useRouter } from 'next/navigation';
 
 type Workout = {
@@ -25,6 +25,7 @@ type WorkoutFormValues = {
 export default function EditPage() {
     const { id } = useParams<{ id: string }>();
     const [workout, setWorkout] = useState<Workout | null>(null);
+    const [loading, setLoading] = useState(true);
 
     const router = useRouter();
 
@@ -38,6 +39,8 @@ export default function EditPage() {
                 setWorkout(data.workout);
             } catch (error) {
                 console.error(error);
+            } finally {
+                setLoading(false);
             }
         }
         fetchCurrentWorkout();
@@ -94,6 +97,11 @@ export default function EditPage() {
         }
     };
 
+    if (loading) return (
+        <div className="m-2">
+            <Spin size="large" />
+        </div>
+    );
 
     return (
         <div className="m-2">

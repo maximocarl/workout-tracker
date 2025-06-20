@@ -1,7 +1,6 @@
 "use client";
 
 import { Tabs } from "antd";
-import { useState, useEffect } from "react";
 import { useRouter, usePathname } from 'next/navigation';
 import { defaultTabs } from "@/lib/data/defaultTabs";
 import UserAccess from "./userAccess";
@@ -22,17 +21,20 @@ export default function Nav({ children }: { children?: React.ReactNode }) {
     };
 
     return (
-        <Tabs
-            onTabClick={(key) => router.push(key)}
-            tabBarStyle={{ marginLeft: "1rem" }}
-            tabBarExtraContent={extraContent}
-            items={items.map(({ key, label }) => ({
+        <div>
+            <Tabs
+                onTabClick={(key) => router.push(key)}
+                tabBarStyle={{ marginLeft: "1rem" }}
+                tabBarExtraContent={extraContent}
+                items={items.map(({ key, label }) => ({
 
-                key,
-                label: (
-                    <span>{label}</span>
-                ),
-            }))}
-        />
+                    key,
+                    label: (
+                        <span>{label}</span>
+                    ),
+                }))}
+            />
+        </div>
+
     );
 }

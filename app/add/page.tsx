@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from "react";
-import { Button, Form, Input, Select } from 'antd';
+import { Button, Form, Input, Select, Spin } from 'antd';
 import { useRouter } from 'next/navigation';
 
 type Workout = {
@@ -23,6 +23,7 @@ type DayFormValues = {
 
 export default function AddDayPage() {
     const [allWorkouts, setAllWorkouts] = useState<Workout[]>([]);
+    const [loading, setLoading] = useState(true);
     const router = useRouter();
 
     useEffect(() => {
@@ -36,10 +37,18 @@ export default function AddDayPage() {
                 setAllWorkouts(data.workouts);
             } catch (error) {
                 console.error(error);
+            } finally {
+                setLoading(false);
             }
         }
         fetchCurrentDay();
     }, []);
+
+    if (loading) return (
+        <div className="m-2">
+            <Spin size="large" />
+        </div>
+    );
 
     const handleSubmit = async (values: DayFormValues) => {
         try {

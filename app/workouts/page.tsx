@@ -35,7 +35,19 @@ export default function WorkoutPage() {
     fetchWorkouts();
   }, []);
 
-  if (loading) return <p>Loading workouts...</p>;
+  if (loading) return (
+    <Row gutter={16}>
+      <Col span={8}>
+        <Card loading={loading}></Card>
+      </Col>
+      <Col span={8}>
+        <Card loading={loading}></Card>
+      </Col>
+      <Col span={8}>
+        <Card loading={loading}></Card>
+      </Col>
+    </Row>
+  );
 
   return (
 
