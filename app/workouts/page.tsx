@@ -14,11 +14,10 @@ type Workout = {
 };
 
 export default function WorkoutPage() {
-  const router = useRouter();
   const [workouts, setWorkouts] = useState<Workout[]>([]);
   const [loading, setLoading] = useState(true);
-
-
+  
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchWorkouts() {
@@ -82,7 +81,7 @@ export default function WorkoutPage() {
               styles={{ body: { margin: '16px' } }}
               hoverable={true}
             >
-              <p>{w.sets} sets for {w.sets} Reps</p>
+              <p>{w.sets} Sets for {w.sets} Reps</p>
               <p>At a weight of {w.weight} lbs</p>
               <p>Notes: {w.notes}</p>
               <Divider />

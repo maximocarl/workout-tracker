@@ -14,9 +14,9 @@ type WorkoutFormValues = {
 }
 
 export default function AddWorkoutPage() {
-    const router = useRouter();
-
     const [loading, setLoading] = useState(true);
+    
+    const router = useRouter();
 
     useEffect(() => {
         const timeout = setTimeout(() => setLoading(false), 200);

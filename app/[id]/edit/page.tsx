@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { Button, Form, Input, Select } from 'antd';
 import { useParams, useRouter } from 'next/navigation';
 
-// 
 type Workout = {
     _id: string;
     name: string;
@@ -30,10 +29,10 @@ type DayFormValues = {
 
 
 export default function EditPage() {
-    const { id } = useParams<{ id: string }>();
     const [day, setDay] = useState<Day | null>(null);
     const [allWorkouts, setAllWorkouts] = useState<Workout[]>([]);
 
+    const { id } = useParams<{ id: string }>();
     const router = useRouter();
 
     useEffect(() => {
@@ -45,6 +44,7 @@ export default function EditPage() {
 
                 const data = await res.json();
                 const data2 = await res2.json();
+
                 setDay(data.day);
                 setAllWorkouts(data2.workouts);
             } catch (error) {

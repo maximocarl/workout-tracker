@@ -22,9 +22,10 @@ type Day = {
 }
 
 export default function DayPage() {
-    const { id } = useParams<{ id: string }>();
     const [day, setDay] = useState<Day | null>(null);
     const [loading, setLoading] = useState(true);
+
+    const { id } = useParams<{ id: string }>();
     const router = useRouter();
 
     useEffect(() => {
@@ -98,7 +99,7 @@ export default function DayPage() {
                             styles={{ body: { margin: '16px' } }}
                             hoverable={true}
                         >
-                            <p>{w.sets} sets for {w.sets} Reps</p>
+                            <p>{w.sets} Sets for {w.sets} Reps</p>
                             <p>At a weight of {w.weight} lbs</p>
                             <p>Notes: {w.notes}</p>
                             <Divider />
