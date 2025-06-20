@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Button, Form, Input, Select } from 'antd';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 type Workout = {
     _id: string;
