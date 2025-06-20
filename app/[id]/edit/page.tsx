@@ -2,9 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import { Button, Form, Input, Select } from 'antd';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
-// Type 
+// 
 type Workout = {
     _id: string;
     name: string;
@@ -25,12 +25,12 @@ type Day = {
 type DayFormValues = {
     currentDay: string;
     currentRoutine: string;
-    workouts: string[];
+    workouts: string[]; 
 };
 
 
-export default function EditPage({ params }: { params: { id: string } }) {
-    const id = params.id;
+export default function EditPage() {
+    const { id } = useParams<{ id: string }>();
     const [day, setDay] = useState<Day | null>(null);
     const [allWorkouts, setAllWorkouts] = useState<Workout[]>([]);
 
