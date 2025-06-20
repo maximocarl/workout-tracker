@@ -20,25 +20,6 @@ export function defaultTabs(pathname: string, children: React.ReactNode): TabsPr
     },
   ];
 
-  const navDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-
-  const pathSegments = pathname.split("/").filter(Boolean);
-  const day = pathSegments[0];
-
-  if (navDays.includes(day)) {
-    tabs.push({
-      key: `/${day}`,
-      label: <span>{day}</span>,
-      children,
-    });
-  } else if (pathname === "/login") {
-    tabs.push({
-      key: "/login",
-      label: <span>Login</span>,
-      children,
-    });
-  }
-
 
   return tabs;
 }
