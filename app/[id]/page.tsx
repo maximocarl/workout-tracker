@@ -13,6 +13,7 @@ type Workout = {
     weight: number;
     notes?: string;
 };
+
 type Day = {
     _id: string;
     day: string;
