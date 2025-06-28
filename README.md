@@ -1,4 +1,4 @@
-This is a simple website that utilizes Next.js, React, MongoDB, Mongoose, OAUTH, and development on Vercel  
+This is a website that utilizes Next.js, React, MongoDB, Mongoose, and OAUTH
 
 [![Live Demo](https://img.shields.io/badge/demo-online-brightgreen)](https://workout-tracker-one-blue.vercel.app/)
 
